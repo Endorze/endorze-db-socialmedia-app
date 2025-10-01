@@ -4,10 +4,12 @@
   --font-size: 1.2rem;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-}  
+
+@layer components {
+  .button-primary {@apply bg-red-500 text-white py-4 px-6 font-bold rounded-2xl text-4xl}
+  .button-secondary {@apply bg-red-400 text-white p-4 font-bold rounded-2xl text-xl}
+  .button-tertiary {@apply bg-gray-800 text-white p-4 font-bold rounded-2xl text-xl}
+}
 
 
 
