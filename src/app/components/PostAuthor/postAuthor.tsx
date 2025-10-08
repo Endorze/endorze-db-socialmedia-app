@@ -1,5 +1,8 @@
 import Avatar from "../Avatar/avatar"
 import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
 
 type AuthorProps = {
     image: string,

@@ -3,7 +3,6 @@ import Post from "../components/Post/post";
 
 const singleFeed = async ({ params }: { params: { slug: string } }) => {
     const { slug } = await params;
-    
     const { data, error } = await getSinglePost(slug);
     console.log(data)
 

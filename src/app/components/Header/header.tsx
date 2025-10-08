@@ -8,7 +8,6 @@ const Header = () => {
         <Logo />
         <AccountLinks />
       </header>
-
         <div className=" pt-4 mx-auto w-[90%] border-b-4"></div>
     </>
   );

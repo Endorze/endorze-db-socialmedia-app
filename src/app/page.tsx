@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Post from "./components/Post/post";
 import { getMainFeedPosts } from "../../utils/supabase/queries";
-import MainFeed from "./components/Home/MainFeed";
+import MainFeed from "./components/Home/MainFeed/mainFeed";
 
 dayjs.extend(relativeTime);
 
