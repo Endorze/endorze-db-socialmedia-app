@@ -2,19 +2,21 @@
 import { useQuery } from "@tanstack/react-query"
 import { getMainFeedPosts, MainPostType } from "../../../../../utils/supabase/queries"
 import Post from "../../Post/post"
+import { createClient } from "../../../../../utils/supabase/browser-client"
 
 const MainFeed = ({ posts }: { posts: MainPostType }) => {
 
     const { data } = useQuery({
         queryKey: ["mainfeed-posts"],
         queryFn: async () => {
-            const { data, error } = await getMainFeedPosts()
+            const supabase = createClient();
+            const { data, error } = await getMainFeedPosts(supabase)
             if (error) throw new Error;
             return data;
         },
         initialData: posts,
         refetchOnMount: false,
-        staleTime: 10000
+        refetchInterval: 10000
     })
 
 
