@@ -1,25 +1,41 @@
 import { getSinglePost } from "../../../../utils/supabase/queries";
 import Post from "@/app/components/Post/post";
+import { createClient } from "../../../../utils/supabase/server-client";
+import { DeletePost } from "../../../../actions/delete-post";
+import DeleteButton from "@/app/components/Buttons/DeleteButton/deleteButton";
+
+export const dynamic = "force-dynamic"
 
 const SingleFeed = async ({ params }: { params: { slug: string } }) => {
   const { slug } = await params;
-  const { data, error } = await getSinglePost(slug);
+  const { data: currentPost, error } = await getSinglePost(slug);
 
-  if (error || !data) {
+  if (error || !currentPost) {
     console.error("Post fetch error:", error?.message);
     return <p>Post not found or failed to load.</p>;
   }
 
+  const supabase = await createClient("SingleFeed");
+  const { data } = await supabase.auth.getUser()
+  const { user } = data
+  const isAuthor = user?.id === currentPost.user_id
+
+  console.log(user?.id);
+
   return (
     <div>
-      <p>single feed</p>
+      <p>{currentPost.user_id}</p>
+      <p>Author: {user?.id}</p>
+        {isAuthor && (
+          <DeleteButton postId={currentPost.id}/>
+        )}
       <div className="flex gap-2">
         <Post
-          content={data.content}
-          title={data.title}
-          username={data.users.username}
-          created_at={data.created_at}
-          slugText={data.slug}
+          content={currentPost.content}
+          title={currentPost.title}
+          username={currentPost.users.username}
+          created_at={currentPost.created_at}
+          slugText={currentPost.slug}
         />
       </div>
     </div>

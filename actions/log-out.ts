@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "../utils/supabase/server-client";
 
 export const SignOut = async () => {
-  const supabase = await createClient();
+  const supabase = await createClient("SignOut");
 
   const { error } = await supabase.auth.signOut();
 

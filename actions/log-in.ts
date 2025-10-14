@@ -1,21 +1,17 @@
 "use server";
 import { redirect } from "next/navigation";
 import { createClient } from "../utils/supabase/server-client";
+import { loginSchema } from "./schemas";
+import z from "zod"
 
-export const Login = async (formData: FormData) => {
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+export const Login = async (userdata: z.infer<typeof loginSchema>) => {
+  const parsedData = loginSchema.parse(userdata)
+  const supabase = await createClient("Login");
 
-  const supabase = await createClient();
-
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  const { data, error } = await supabase.auth.signInWithPassword(parsedData);
 
   if (error) {
-    console.error("Login error:", error.message);
-    throw new Error(error.message);
+    if (error.message === "NEXT_REDIRECT") throw error;
   }
 
   redirect("/");

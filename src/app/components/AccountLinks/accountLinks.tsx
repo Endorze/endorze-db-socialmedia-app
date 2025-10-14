@@ -4,9 +4,8 @@ import LogoutButton from "../Buttons/LogoutButton/logoutButton";
 
 const AccountLinks = async () => {
 
-  const supabase = await createClient();
+  const supabase = await createClient("AccountLinks");
   const {data: {user}, error} = await supabase.auth.getUser();
-  supabase.auth.signOut();
 
   return (
     <>

@@ -6,11 +6,11 @@ import { createClient } from "../../../utils/supabase/server-client";
 
 dayjs.extend(relativeTime);
 
-export default async function Home() {
-    const supabase = await createClient();
-    const { data, error } = await getMainFeedPosts(supabase);
+export const revalidate = 30;
 
-    console.log("data:", data, "error:", error)
+export default async function Home() {
+    const supabase = await createClient("Home");
+    const { data, error } = await getMainFeedPosts(supabase);
 
     return (
         <div className="w-[80%] mx-auto mt-4">

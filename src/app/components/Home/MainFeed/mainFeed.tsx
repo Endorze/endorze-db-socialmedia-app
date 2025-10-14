@@ -19,7 +19,6 @@ const MainFeed = ({ posts }: { posts: MainPostType }) => {
         refetchInterval: 10000
     })
 
-
     return (
         <div>
             <div className="w-[80%] mx-auto mt-4">
