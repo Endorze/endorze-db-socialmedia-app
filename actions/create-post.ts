@@ -5,10 +5,19 @@ import { createPostSchema } from "./schemas";
 import z from "zod"
 import { slugify } from "../utils/supabase/slugify";
 import { revalidatePath } from "next/cache";
+import { uploadImage } from "../utils/supabase/upload-image";
 
 export const CreatePost = async (userdata: z.infer<typeof createPostSchema>) => {
     const parsedData = createPostSchema.parse(userdata);
     const slug = slugify(parsedData.title)
+
+    const imageFile = userdata.image?.get("image")
+
+    if (!(imageFile instanceof File) && imageFile !== null) {
+        throw new Error("Malformed image file")
+    }
+
+    const publicImageUrl = imageFile ? await uploadImage(imageFile) : null;
 
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
@@ -20,7 +29,7 @@ export const CreatePost = async (userdata: z.infer<typeof createPostSchema>) => 
     const userId = user.id;
 
     const { error } = await supabase.from("posts")
-        .insert([{ user_id: userId, slug: slug, ...parsedData }]).throwOnError()
+        .insert([{ user_id: userId, slug: slug, ...parsedData, image: publicImageUrl }]).throwOnError()
 
     revalidatePath("/")
     redirect(`/${slug}`)

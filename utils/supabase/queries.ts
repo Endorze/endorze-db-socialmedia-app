@@ -5,7 +5,7 @@ import { type QueryData } from "@supabase/supabase-js";
 export const getMainFeedPosts = async (supabase: ReturnType<typeof createClient>) => {
 
     return await supabase.from("posts")
-        .select("id, title, content, slug, created_at, user_id, users(username)")
+        .select("id, title, content, slug, created_at, user_id, users(username), image")
         .order("created_at", { ascending: false })
 }
 

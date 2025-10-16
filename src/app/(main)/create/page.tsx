@@ -4,14 +4,24 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { createPostSchema } from "../../../../actions/schemas";
 import { CreatePost } from "../../../../actions/create-post";
 import { useMutation } from "@tanstack/react-query";
+import ErrorMessage from "@/app/components/ErrorMessage/errorMessage";
+import z from "zod"
 
 const CreatePage = () => {
+
+    const schemaWithImage = createPostSchema.omit({ image: true })
+        .extend({
+            image: z.unknown().transform(value => {
+                return value as FileList
+            }).optional()
+        })
+
 
     const {
         register,
         handleSubmit,
         formState: { errors } } = useForm({
-            resolver: zodResolver(createPostSchema),
+            resolver: zodResolver(schemaWithImage),
         })
 
     const { mutate, isPending, error } = useMutation({
@@ -20,12 +30,24 @@ const CreatePage = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit((values) => mutate(values))} className="border-1 rounded-2xl p-4 flex flex-col w-lg mx-auto">
+            <form onSubmit={handleSubmit(values => {
+                const imageForm = new FormData();
+                if (values.image) imageForm.append("image", values.image[0])
+                mutate({title: values.title, content: values.content, image: imageForm})
+
+            })} className="border-1 rounded-2xl p-4 flex flex-col w-lg mx-auto">
                 <h2 className="font-bold text-3xl mb-4">What's on your mind?</h2>
+
 
                 <fieldset className="flex flex-col">
                     <label htmlFor="title">Title</label>
                     <input className="mb-4 px-2" {...register("title")} type="text" id="title" placeholder="Post title..." />
+                </fieldset>
+
+                <fieldset>
+                    <label htmlFor="image">Upload an image</label>
+                    <input type="file" {...register("image")} id="image"></input>
+                    {errors.image && <ErrorMessage message={errors.image.message!} />}
                 </fieldset>
 
                 <fieldset className="flex flex-col">
@@ -39,5 +61,4 @@ const CreatePage = () => {
         </div>
     )
 }
-
 export default CreatePage;
