@@ -9,28 +9,37 @@ import { uploadImage } from "../utils/supabase/upload-image";
 
 export const CreatePost = async (userdata: z.infer<typeof createPostSchema>) => {
     const parsedData = createPostSchema.parse(userdata);
-    const slug = slugify(parsedData.title)
+    const slug = slugify(parsedData.title);
 
-    const imageFile = userdata.image?.get("image")
+    const imageFile = userdata.image?.get("image");
 
-    if (!(imageFile instanceof File) && imageFile !== null) {
-        throw new Error("Malformed image file")
+    let publicImageUrl: string | null = null;
+
+    if (imageFile instanceof File) {
+        publicImageUrl = await uploadImage(imageFile);
+    } else if (imageFile) {
+        throw new Error("Malformed image file");
     }
-
-    const publicImageUrl = imageFile ? await uploadImage(imageFile) : null;
 
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
-        throw new Error("Not Authorized")
+        throw new Error("Not Authorized");
     }
 
     const userId = user.id;
 
-    const { error } = await supabase.from("posts")
-        .insert([{ user_id: userId, slug: slug, ...parsedData, image: publicImageUrl }]).throwOnError()
+    const { error } = await supabase
+        .from("posts")
+        .insert([{ 
+            user_id: userId, 
+            slug: slug, 
+            ...parsedData, 
+            image: publicImageUrl 
+        }])
+        .throwOnError();
 
-    revalidatePath("/")
-    redirect(`/${slug}`)
-}
+    revalidatePath("/");
+    redirect(`/${slug}`);
+};

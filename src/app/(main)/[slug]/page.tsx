@@ -2,6 +2,7 @@ import { getSinglePost } from "../../../../utils/supabase/queries";
 import Post from "@/app/components/Post/post";
 import { createClient } from "../../../../utils/supabase/server-client";
 import DeleteButton from "@/app/components/Buttons/DeleteButton/deleteButton";
+import EditPostButton from "@/app/components/Buttons/EditPostButton/editPostButton";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +25,13 @@ const SingleFeed = async ({ params }: { params: { slug: string } }) => {
       <p>{currentPost.user_id}</p>
       <p>Author: {user?.id}</p>
 
-      {isAuthor && <DeleteButton postId={currentPost.id} />}
+      {isAuthor && 
+      
+      <div>
+        <DeleteButton postId={currentPost.id} />
+        <EditPostButton slug={currentPost.slug}/>
+      </div>
+      }
 
       {currentPost.image ? (
         <div className="flex gap-2">

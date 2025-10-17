@@ -23,6 +23,7 @@ export const middleware = async (request: NextRequest) => {
 
     const protectedRoutes = [
         /^\/create$/,
+        /^\/[^\/]+\/edit$/,
     ]
 
     // If we are on a protected route
