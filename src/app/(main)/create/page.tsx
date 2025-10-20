@@ -31,8 +31,8 @@ const CreatePage = () => {
     return (
         <div>
             <form onSubmit={handleSubmit(values => {
-                const imageForm = new FormData();
-                if (values.image) imageForm.append("image", values.image[0])
+                let imageForm = new FormData();
+                if (values.image?.length) imageForm.append("image", values.image[0])
                 mutate({title: values.title, content: values.content, image: imageForm})
 
             })} className="border-1 rounded-2xl p-4 flex flex-col w-lg mx-auto">

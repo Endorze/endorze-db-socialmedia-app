@@ -10,7 +10,7 @@ const EditPage = async ({params}: {params: {slug:string}}) => {
         <div>
             {data && (
                 <div>
-                    <EditForm postId={data.id} currentPost={{title: data.title, content: data.content}}/>
+                    <EditForm postId={data.id} currentPost={{title: data.title, content: data.content, image: data.image}}/>
                 </div>
             )}
         </div>

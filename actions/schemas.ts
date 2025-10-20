@@ -14,5 +14,5 @@ export const signUpSchema = z.object({
 export const createPostSchema = z.object({
     title: z.string().min(1, "Title required"),
     content: z.string().optional(),
-    image: z.instanceof(File).optional()
+    image: z.instanceof(FormData).optional()
 })
