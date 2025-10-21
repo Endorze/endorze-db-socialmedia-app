@@ -7,11 +7,10 @@ import z from "zod"
 export const Login = async (userdata: z.infer<typeof loginSchema>) => {
   const parsedData = loginSchema.parse(userdata)
   const supabase = await createClient("Login");
-
-  const { data, error } = await supabase.auth.signInWithPassword(parsedData);
+  const { data: { user }, error } = await supabase.auth.signInWithPassword(parsedData);
 
   if (error) {
-    if (error.message === "NEXT_REDIRECT") throw error;
+    return { error: error.message }
   }
 
   redirect("/");

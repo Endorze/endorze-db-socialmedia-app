@@ -16,7 +16,7 @@ const LoginForm = () => {
         resolver: zodResolver(loginSchema),
     })
 
-    const {mutate, isPending, error} = useMutation({
+    const {mutate, isPending, data, error} = useMutation({
         mutationFn: Login
     })
 
@@ -39,7 +39,7 @@ const LoginForm = () => {
                     Don't have an account? Sign up <Link className="text-red-400" href={"/auth/signup"}>here!</Link>
                 </div>
             </form>
-            {error && <ErrorMessage message={error.message} />}
+            {data?.error && <ErrorMessage message={data.error} />}
         </div>
     )
 }
