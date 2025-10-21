@@ -4,6 +4,10 @@
   --font-size: 1.2rem;
 }
 
+body {
+  background-color: #F4F2EE;
+}
+
 
 @layer components {
   .button-primary {@apply bg-red-500 text-white py-4 px-6 font-bold rounded-2xl text-4xl}

@@ -17,14 +17,14 @@ const Post = ({ content, title, username, created_at, slugText, image }: Props) 
                 <div className="flex justify-between">
                     <PostAuthor image="" author={username} timeAgo={created_at} title={title} />
                 </div>
-                <div className="flex flex-col mb-20">
+                <div className="flex gap-2">
+                    <p>{username}:</p>
+                    <p>{content}</p>
+                </div>
+                <div className="flex flex-col">
                     {image && (
                         <img src={image} className="w-full h-[auto] max-h-[600px] object-cover" />
                     )}
-                    <div className="flex gap-2">
-                        <p>{username}:</p>
-                        <p>{content}</p>
-                    </div>
                 </div>
             </div>
         </Link>

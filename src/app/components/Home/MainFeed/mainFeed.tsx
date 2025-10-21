@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import { getMainFeedPosts, MainPostType } from "../../../../../utils/supabase/queries"
 import Post from "../../Post/post"
 import { createClient } from "../../../../../utils/supabase/browser-client"
+import PostActions from "../../PostActions/postActions"
 
 const MainFeed = ({ posts }: { posts: MainPostType }) => {
 
@@ -29,6 +30,7 @@ const MainFeed = ({ posts }: { posts: MainPostType }) => {
                                 <div className="flex gap-2">
                                     <Post content={post.content} title={post.title} username={post.users.username} created_at={post.created_at} slugText={post.slug} image={post.image ?? undefined} />
                                 </div>
+                                <PostActions />
                             </div>
                         )
                     })
