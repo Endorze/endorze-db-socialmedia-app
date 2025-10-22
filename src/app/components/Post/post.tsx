@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PostAuthor from "../PostAuthor/postAuthor";
 import PostActions from "../PostActions/postActions";
+import CommentSection from "../CommentSection/commentSection";
 
 type Props = {
     content: string | null;
@@ -26,9 +27,9 @@ const Post = ({
     likeCount,
 }: Props) => {
     return (
-        <div className="max-w-[500px] w-full mx-auto border-b pb-4 mb-4">
+        <div className="max-w-[500px] w-full mx-auto pb-4 mb-4">
             <div className="flex justify-between">
-                <PostAuthor image="" author={username} timeAgo={created_at} title={title} slug={slugText}/>
+                <PostAuthor image="" author={username} timeAgo={created_at} title={title} slug={slugText} />
             </div>
 
             <div className="flex gap-2 mt-2">
@@ -48,6 +49,7 @@ const Post = ({
                 </Link>
             )}
             <PostActions postId={id} initialLiked={initialLiked} likeCount={likeCount} />
+            <CommentSection postId={id}/>
         </div>
     );
 };

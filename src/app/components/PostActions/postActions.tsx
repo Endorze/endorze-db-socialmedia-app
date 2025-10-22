@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp, faComment, faShare, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { faShare, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import LikeButton from '../Buttons/LikeButton/likeButton'
 import { CommentButton } from '../Buttons/CommentButton/commentButton';
 
@@ -13,7 +13,7 @@ export default function PostActions({
     likeCount: number;
 }) {
     return (
-        <div className="flex gap-2 justify-evenly max-w-[600px] mx-auto">
+        <div className="flex gap-2 justify-evenly max-w-[600px] mx-auto border-b">
             <LikeButton postId={postId} initialLiked={initialLiked} likeCount={likeCount} />
             <CommentButton />
             <button className='flex items-center cursor-pointer w-fit gap-1.5'>

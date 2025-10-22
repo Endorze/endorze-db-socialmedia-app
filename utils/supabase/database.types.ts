@@ -19,6 +19,7 @@ export type Database = {
           content: string
           created_at: string
           id: number
+          parent_id: number | null
           post_id: number
           user_id: string
         }
@@ -26,6 +27,7 @@ export type Database = {
           content?: string
           created_at?: string
           id?: number
+          parent_id?: number | null
           post_id: number
           user_id?: string
         }
@@ -33,6 +35,7 @@ export type Database = {
           content?: string
           created_at?: string
           id?: number
+          parent_id?: number | null
           post_id?: number
           user_id?: string
         }
