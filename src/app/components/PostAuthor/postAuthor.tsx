@@ -1,6 +1,7 @@
 import Avatar from "../Avatar/avatar"
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import Link from "next/link";
 
 dayjs.extend(relativeTime);
 
@@ -9,6 +10,7 @@ type AuthorProps = {
     author: string,
     timeAgo: string,
     title: string,
+    slug: string,
 }
 
 const PostAuthor = (props: AuthorProps) => {
@@ -22,7 +24,9 @@ const PostAuthor = (props: AuthorProps) => {
                         {dayjs(props.timeAgo).fromNow()}
                     </p>
                 </div>
-                <p className="font-bold text-xl">{props.title}</p>
+                <Link href={`/${props.slug}`}>
+                    <p className="font-bold text-xl hover:underline">{props.title}</p>
+                </Link>
             </div>
         </div>
     )

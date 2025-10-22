@@ -28,9 +28,19 @@ const MainFeed = ({ posts }: { posts: MainPostType }) => {
                         return (
                             <div key={index}>
                                 <div className="flex gap-2">
-                                    <Post content={post.content} title={post.title} username={post.users.username} created_at={post.created_at} slugText={post.slug} image={post.image ?? undefined} />
+                                    <Post
+                                        id={post.id}
+                                        content={post.content}
+                                        title={post.title}
+                                        username={post.users.username}
+                                        created_at={post.created_at}
+                                        slugText={post.slug}
+                                        image={post.image ?? undefined}
+                                        initialLiked={post.initialLiked}
+                                        likeCount={post.likes_count}
+                                    />
                                 </div>
-                                <PostActions />
+
                             </div>
                         )
                     })
