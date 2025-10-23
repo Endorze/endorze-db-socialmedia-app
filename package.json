@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "gen:types": "npx supabase gen types typescript --project-id zjlhxbimfkzninrfzaiy --schema public > utils/supabase/database.types.ts"
+    
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
