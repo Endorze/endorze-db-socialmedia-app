@@ -3,7 +3,8 @@ import Link from "next/link";
 import PostAuthor from "../PostAuthor/postAuthor";
 import PostActions from "../PostActions/postActions";
 import CommentSection from "../CommentSection/commentSection";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createClient } from "../../../../utils/supabase/browser-client";
 
 type Props = {
     content: string | null;
@@ -30,9 +31,24 @@ const Post = ({
 }: Props) => {
 
     const [commentsVisible, setCommentsVisible] = useState(false);
+      const [commentCount, setCommentCount] = useState(0);
+
+  useEffect(() => {
+    const fetchCommentCount = async () => {
+      const supabase = await createClient();
+      const { count, error } = await supabase
+        .from("comments")
+        .select("*", { count: "exact", head: true })
+        .eq("post_id", id);
+
+      if (!error) setCommentCount(count ?? 0);
+    };
+    fetchCommentCount();
+  }, [id]);
+
 
     return (
-        <div className="max-w-[500px] w-full mx-auto pb-4 mb-4">
+        <div className="max-w-[500px] w-full mx-auto pb-4 mb-4 bg-white rounded-2xl p-2">
             <div className="flex justify-between">
                 <PostAuthor image="" author={username} timeAgo={created_at} title={title} slug={slugText} />
             </div>
@@ -53,7 +69,7 @@ const Post = ({
                     />
                 </Link>
             )}
-            <PostActions postId={id} {...{commentsVisible, setCommentsVisible, initialLiked, likeCount}} />
+            <PostActions postId={id} {...{commentsVisible, setCommentsVisible, initialLiked, likeCount, commentCount}} />
             {commentsVisible && <CommentSection postId={id}/>}
         </div>
     );

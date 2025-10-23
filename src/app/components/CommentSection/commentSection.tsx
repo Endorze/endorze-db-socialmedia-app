@@ -23,29 +23,14 @@ const CommentSection = ({ postId }: { postId: number }) => {
     },
     onSuccess: () => {
       setNewComment("");
-      refetch(); 
+      refetch();
     },
   });
 
   if (isLoading) return <p className="text-gray-500 text-sm">Loading comments…</p>;
 
   return (
-    <div className="mt-2 border-t pt-2">
-      {comments.length === 0 ? (
-        <p className="text-gray-500 text-sm italic">No comments yet.</p>
-      ) : (
-        <div className="space-y-2 mb-3">
-          {comments.map((c) => (
-            <Comment
-              key={c.id}
-              author={c.users?.username ?? "Unknown"}
-              content={c.content}
-              timeAgo={c.created_at}
-            />
-          ))}
-        </div>
-      )}
-
+    <div className="mt-2 pt-2">
       <div className="flex gap-2 items-center">
         <input
           type="text"
@@ -65,6 +50,21 @@ const CommentSection = ({ postId }: { postId: number }) => {
           {mutation.isPending ? "Posting..." : "Post"}
         </button>
       </div>
+      {comments.length === 0 ? (
+        <p className="text-gray-500 text-sm italic">No comments yet.</p>
+      ) : (
+        <div className="space-y-2 mb-3">
+          {comments.map((comment) => (
+            <Comment
+              key={comment.id}
+              author={comment.users?.username ?? "Unknown"}
+              content={comment.content}
+              timeAgo={comment.created_at}
+            />
+          ))}
+        </div>
+      )}
+
     </div>
   );
 };
