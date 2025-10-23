@@ -1,7 +1,9 @@
+"use client"
 import Link from "next/link";
 import PostAuthor from "../PostAuthor/postAuthor";
 import PostActions from "../PostActions/postActions";
 import CommentSection from "../CommentSection/commentSection";
+import { useState } from "react";
 
 type Props = {
     content: string | null;
@@ -26,6 +28,9 @@ const Post = ({
     id,
     likeCount,
 }: Props) => {
+
+    const [commentsVisible, setCommentsVisible] = useState(false);
+
     return (
         <div className="max-w-[500px] w-full mx-auto pb-4 mb-4">
             <div className="flex justify-between">
@@ -48,8 +53,8 @@ const Post = ({
                     />
                 </Link>
             )}
-            <PostActions postId={id} initialLiked={initialLiked} likeCount={likeCount} />
-            <CommentSection postId={id}/>
+            <PostActions postId={id} {...{commentsVisible, setCommentsVisible, initialLiked, likeCount}} />
+            {commentsVisible && <CommentSection postId={id}/>}
         </div>
     );
 };
