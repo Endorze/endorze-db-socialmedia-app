@@ -1,15 +1,19 @@
 type Props = {
-    onClick: () => void,
+    onClick: () => void;
     replyCount: number;
-}
+};
 
 export const ReplyButton = ({ onClick, replyCount }: Props) => {
     return (
         <button
-            className="cursor border-1"
-            onClick={onClick}>
-            <span>{replyCount === 1 ? "show replies" : "reply"}</span>
+            onClick={onClick}
+            className="cursor-pointer text-sm text-blue-600 hover:underline"
+        >
+            <span>
+                {replyCount > 0
+                    ? `Show ${replyCount} ${replyCount === 1 ? "reply" : "replies"}`
+                    : "Reply"}
+            </span>
         </button>
-    )
-}
-
+    );
+};
