@@ -55,12 +55,7 @@ const CommentSection = ({ postId }: { postId: number }) => {
       ) : (
         <div className="space-y-2 mb-3">
           {comments.map((comment) => (
-            <Comment
-              key={comment.id}
-              author={comment.users?.username ?? "Unknown"}
-              content={comment.content}
-              timeAgo={comment.created_at}
-            />
+            <Comment comment={comment} />
           ))}
         </div>
       )}

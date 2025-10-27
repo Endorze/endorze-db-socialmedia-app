@@ -2,8 +2,7 @@
 import { CommentForPost } from "@/types/types";
 import { createClient } from "../utils/supabase/server-client";
 
-
-export const getCommentsForPost = async (postId: number): Promise<CommentForPost[]> => {
+export const getRepliesForComments = async (commentId: number): Promise<CommentForPost[]> => {
   const supabase = await createClient();
 
   const { data, error } = await supabase
@@ -16,8 +15,7 @@ export const getCommentsForPost = async (postId: number): Promise<CommentForPost
       parent_id,
       user:users!comments_user_id_fkey(username)
     `)
-    .eq("post_id", postId)
-    .is("parent_id", null)
+    .eq("parent_id", commentId)
     .order("created_at", { ascending: true });
 
   if (error) {
