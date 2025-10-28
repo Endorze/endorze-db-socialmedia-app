@@ -21,7 +21,7 @@ export default function PostActions({
 }) {
 
     return (
-        <div className="flex gap-2 justify-evenly max-w-[600px] mx-auto border-b py-2">
+        <div className="flex gap-2 justify-evenly max-w-[600px] mx-auto w-[95%]  mt-4 ">
             <LikeButton postId={postId} initialLiked={initialLiked} likeCount={likeCount} />
             <CommentButton onClick={() => setCommentsVisible(!commentsVisible)} commentCount={commentCount}/>
             <button className='flex items-center cursor-pointer w-fit gap-1.5'>

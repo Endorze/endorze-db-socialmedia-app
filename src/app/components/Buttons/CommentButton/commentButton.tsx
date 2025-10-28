@@ -14,7 +14,7 @@ export const CommentButton = ({ onClick, commentCount }: Props) => {
     >
       <FontAwesomeIcon icon={faComment} style={{ fontSize: "18px" }} />
       <span>
-        {commentCount} {commentCount === 1 ? "Comment" : "Comments"}
+        {commentCount && commentCount > 0 ? `${commentCount} Comments` : "Comment" }
       </span>
     </button>
   );

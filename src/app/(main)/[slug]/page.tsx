@@ -27,12 +27,9 @@ const SingleFeed = async ({ params }: { params: { slug: string } }) => {
 
   return (
     <div>
-      <p>{currentPost.user_id}</p>
-      <p>Author: {user?.id}</p>
-
       {isAuthor &&
 
-        <div>
+        <div className="flex flex-col mx-auto">
           <DeleteButton postId={currentPost.id} />
           <EditPostButton slug={currentPost.slug} />
         </div>

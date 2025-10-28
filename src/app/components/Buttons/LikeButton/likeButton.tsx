@@ -40,11 +40,12 @@ export default function LikeButton({
         <button
             onClick={() => mutation.mutate()}
             disabled={mutation.isPending}
-            className={`flex items-center gap-2 ${isLiked ? "text-blue-500" : "text-gray-400"
+            className={`flex items-center gap-2 ${isLiked ? "text-blue-500" : "text-black"
                 } hover:scale-110 transition-transform`}
         >
             <FontAwesomeIcon icon={faThumbsUp} className="text-lg" />
-            <span>{count}</span>
+            <span>{count > 0 ? count : ""}</span>
+
         </button>
     );
 }

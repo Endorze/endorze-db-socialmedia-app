@@ -9,24 +9,20 @@ type AuthorProps = {
     image: string,
     author: string,
     timeAgo: string,
-    title: string,
     slug: string,
 }
 
 const PostAuthor = (props: AuthorProps) => {
     return (
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 pt-4 items-center">
             <Avatar />
             <div className="flex flex-col">
-                <div className="flex gap-2">
-                    <p>{props.author}</p>
-                    <p>
+                <div className="flex gap-2 items-center">
+                    <p className="font-semibold text-sm">{props.author}</p>
+                    <p className="text-sm">
                         {dayjs(props.timeAgo).fromNow()}
                     </p>
                 </div>
-                <Link href={`/${props.slug}`}>
-                    <p className="font-bold text-xl hover:underline">{props.title}</p>
-                </Link>
             </div>
         </div>
     )

@@ -5,7 +5,7 @@ import SearchBar from "./searchBar/searchBar";
 const Header = () => {
   return (
     <>
-      <header className="flex justify-between items-center flex-wrap">
+      <header className="flex justify-between items-center flex-wrap relative">
         <Logo />
         <SearchBar />
         <AccountLinks />

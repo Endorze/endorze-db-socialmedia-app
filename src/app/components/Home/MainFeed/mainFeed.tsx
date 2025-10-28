@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query"
 import { getMainFeedPosts, MainPostType } from "../../../../../utils/supabase/queries"
 import Post from "../../Post/post"
 import { createClient } from "../../../../../utils/supabase/browser-client"
-import PostActions from "../../PostActions/postActions"
 
 const MainFeed = ({ posts }: { posts: MainPostType }) => {
 
@@ -16,8 +15,9 @@ const MainFeed = ({ posts }: { posts: MainPostType }) => {
             return data;
         },
         initialData: posts,
-        refetchOnMount: false,
-        refetchInterval: 10000
+        staleTime: 0,
+        refetchOnMount: "always",
+        refetchOnWindowFocus: true,
     })
 
     return (

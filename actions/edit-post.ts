@@ -7,7 +7,6 @@ import { slugify } from "../utils/supabase/slugify";
 import { createClient } from "../utils/supabase/server-client";
 import { uploadImage } from "../utils/supabase/upload-image";
 
-//
 export const EditPost = async ({
     postId,
     userdata
@@ -30,9 +29,8 @@ export const EditPost = async ({
     if (!user || user.id !== post?.user_id) throw new Error("Not authorized");
 
     const imageFile = userdata.image?.get?.("image");
-    let publicImageUrl = post.image; // if the post already has an image, we save it.
-    
-    //only upload a new image if the file actually exists.
+    let publicImageUrl = post.image; 
+
     if (imageFile instanceof File && imageFile.size > 0) {
         publicImageUrl = await uploadImage(imageFile);
     }

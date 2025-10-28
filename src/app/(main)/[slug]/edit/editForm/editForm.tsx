@@ -6,6 +6,7 @@ import { EditPost } from "../../../../../../actions/edit-post";
 import { createPostSchema } from "../../../../../../actions/schemas";
 import z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
 
 //we use this form to edit a posts title, image or content.
 const EditForm = ({ postId, currentPost, }: { postId: number, currentPost: Pick<Tables<"posts">, "title" | "content" | "image">; }) => {
@@ -13,7 +14,9 @@ const EditForm = ({ postId, currentPost, }: { postId: number, currentPost: Pick<
     const schemaWithImage = createPostSchema.omit({ image: true }).extend({ image: z.unknown().transform(value => { return value as (FileList) }).optional() })
 
     const { mutate, error } = useMutation({
-        mutationFn: EditPost
+        mutationFn: EditPost,
+        onMutate: () => toast("Editing post..."),
+        onSettled: () => toast.success("Post edited successfully")
     })
 
     const { register, handleSubmit } = useForm({
