@@ -7,7 +7,7 @@ export const ReplyButton = ({ onClick, replyCount }: Props) => {
     return (
         <button
             onClick={onClick}
-            className="cursor-pointer text-sm text-blue-600 hover:underline"
+            className="cursor-pointer w-fit font-semibold text-sm text-blue-600 hover:underline"
         >
             <span>
                 {replyCount > 0

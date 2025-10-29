@@ -35,10 +35,9 @@ const Comment = ({ comment }: Props) => {
 
   return (
     <div className="border-l pl-3 text-sm">
-      <PostAuthor image="" author={comment.user.username} timeAgo={comment.created_at} title="" slug="" />
-      <p className="px-12">{comment.content}</p>
-
-      <div className="ml-10 flex items-center gap-2">
+      <PostAuthor image="" author={comment.user.username} timeAgo={comment.created_at} slug="" />
+      <div className="px-12 flex flex-col gap-2">
+        <p>{comment.content}</p>
         <ReplyButton
           onClick={() => {
             setToggleReplies((prev) => !prev);
@@ -46,6 +45,7 @@ const Comment = ({ comment }: Props) => {
           }}
           replyCount={replies.length}
         />
+
       </div>
 
       {showReplyInput && (
