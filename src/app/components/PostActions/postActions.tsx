@@ -21,20 +21,25 @@ export default function PostActions({
 }) {
 
     return (
-        <div className="flex gap-2 justify-evenly max-w-[600px] mx-auto w-[95%]  mt-4 ">
+        <div className="flex gap-2 justify-evenly max-w-[600px] mx-auto w-full  mt-4 ">
             <LikeButton postId={postId} initialLiked={initialLiked} likeCount={likeCount} />
-            <CommentButton onClick={() => setCommentsVisible(!commentsVisible)} commentCount={commentCount}/>
+            <CommentButton onClick={() => setCommentsVisible(!commentsVisible)} commentCount={commentCount} />
             <button className='flex items-center cursor-pointer w-fit gap-1.5'>
                 <span>
-                    <FontAwesomeIcon icon={faShare} style={{ fontSize: "18px" }} /> {/* Dela */}
+                    <FontAwesomeIcon icon={faShare} style={{ fontSize: "18px" }} />
                 </span>
-                Share
+                <p className="max-[500px]:hidden">
+
+                    Share
+                </p>
             </button>
             <button className='flex items-center cursor-pointer w-fit gap-1.5'>
                 <span>
-                    <FontAwesomeIcon icon={faPaperPlane} style={{ fontSize: "18px" }} /> {/* Skicka */}
+                    <FontAwesomeIcon icon={faPaperPlane} style={{ fontSize: "18px" }} />
                 </span>
-                Send
+                <p className="max-[500px]:hidden">
+                    Send
+                </p>
             </button>
         </div>
     )

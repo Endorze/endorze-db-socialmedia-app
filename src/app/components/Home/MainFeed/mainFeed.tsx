@@ -22,7 +22,7 @@ const MainFeed = ({ posts }: { posts: MainPostType }) => {
 
     return (
         <div>
-            <div className="w-[80%] mx-auto mt-4">
+            <div className=" mx-auto mt-4">
                 {
                     data && data.map((post, index) => {
                         return (

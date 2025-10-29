@@ -13,7 +13,7 @@ export default async function Home() {
     const { data, error } = await getMainFeedPosts(supabase);
 
     return (
-        <div className="w-[80%] mx-auto mt-4">
+        <div>
             <MainFeed posts={data!}/>
         </div>
     )

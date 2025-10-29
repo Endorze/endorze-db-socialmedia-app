@@ -13,7 +13,7 @@ export const CommentButton = ({ onClick, commentCount }: Props) => {
       className="flex items-center cursor-pointer w-fit gap-1.5"
     >
       <FontAwesomeIcon icon={faComment} style={{ fontSize: "18px" }} />
-      <span>
+      <span className="max-[500px]:hidden">
         {commentCount && commentCount > 0 ? `${commentCount} Comments` : "Comment" }
       </span>
     </button>
