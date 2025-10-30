@@ -2,7 +2,7 @@ import Link from "next/link"
 
 const Logo = () => {
   return (
-    <Link href="/" className="button-primary">Enddit</Link>
+    <Link href="/"><img className="max-w-[36px] h-auto" src={"/ei.png"}/></Link>
   )
 }
 

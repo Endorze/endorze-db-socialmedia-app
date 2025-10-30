@@ -1,16 +1,20 @@
 import AccountLinks from "../AccountLinks/accountLinks";
+import { BurgerMenu } from "../BurgerMenu/burgerMenu";
 import Logo from "../Logo/logo";
 import SearchBar from "./searchBar/searchBar";
 
 const Header = () => {
   return (
     <>
-      <header className="flex justify-between items-center flex-wrap relative">
+      <header className="flex justify-between items-center p-2 relative bg-white">
+        <div className="flex gap-2">
         <Logo />
         <SearchBar />
+
+        </div>
+        <BurgerMenu />
         <AccountLinks />
       </header>
-        <div className=" pt-4 mx-auto w-[90%] border-b-4"></div>
     </>
   );
 }

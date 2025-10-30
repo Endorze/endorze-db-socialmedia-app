@@ -14,7 +14,7 @@ type AuthorProps = {
 
 const PostAuthor = (props: AuthorProps) => {
     return (
-        <div className="flex gap-2 pt-4 items-center">
+        <Link href={`/ei/${props.author}`} className="flex gap-2 pt-4 items-center">
             <Avatar />
             <div className="flex flex-col">
                 <div className="flex gap-2 items-center">
@@ -24,7 +24,7 @@ const PostAuthor = (props: AuthorProps) => {
                     </p>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }
 

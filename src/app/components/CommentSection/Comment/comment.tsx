@@ -68,20 +68,15 @@ const Comment = ({ comment }: Props) => {
 
       {toggleReplies && (
         <div className="ml-6 mt-2">
-          {isLoading ? (
-            <p className="text-gray-500 text-sm">Loading replies…</p>
-          ) : replies.length === 0 ? (
-            <p className="text-gray-500 text-sm italic">No replies yet.</p>
-          ) : (
-            <div className="space-y-2">
-              {replies.map((reply) => (
-                <Comment
-                  key={reply.id}
-                  comment={reply}
-                />
-              ))}
-            </div>
-          )}
+          <div className="space-y-2">
+            {replies.map((reply) => (
+              <Comment
+                key={reply.id}
+                comment={reply}
+              />
+            ))}
+          </div>
+
         </div>
       )}
     </div>

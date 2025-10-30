@@ -11,8 +11,8 @@ const AccountLinks = async () => {
     <>
       {user ? 
       <>
-        <Link href="/create" className="button-tertiary fixed bottom-[50px] right-[50px] px-4 py-2 w-fit border-4">Create Post</Link>
-        <LogoutButton />
+        <Link href="/create" className="max-[500px]:bottom-[20px] max-[500px]:right-[20px] button-tertiary fixed bottom-[50px] right-[50px] w-fit">Create Post</Link>
+
       </>
        : <Link href="/auth/login" className="button-secondary">Log In</Link>
       }

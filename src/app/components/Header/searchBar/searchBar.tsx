@@ -28,10 +28,10 @@ const SearchBar = () => {
     }
 
     return (
-        <div className="relative">
-            <div className="flex items-center gap-2 p-2">
-                <Search size={32} />
-                <input className="border-1 rounded-xl py-1 px-2" name="search" placeholder="Search by post title" value={userInput} onChange={handleChange} />
+        <div className="relative flex items-center">
+            <div className="flex h-[36px] items-center gap-2 p-2 border border-gray-300 rounded-2xl py-1 px-2">
+                <Search size={16} />
+                <input className="border-0 outline-0" name="search" placeholder="Search by post title" value={userInput} onChange={handleChange} />
             </div>
 
             {data &&

@@ -28,7 +28,7 @@ const CommentSection = ({ postId }: { postId: number }) => {
     },
   });
 
-  if (isLoading) return <p className="text-center text-gray-500 text-sm">Loading comments…</p>;
+  if (isLoading) return <p className="text-center mt-4 text-gray-500 text-sm">Loading comments…</p>;
 
   return (
     <div className="mt-2 pt-2">
