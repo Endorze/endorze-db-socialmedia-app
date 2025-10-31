@@ -33,7 +33,6 @@ export const BurgerMenu = () => {
 
           <nav className="flex flex-col gap-3">
             <a href="/" onClick={() => setIsOpen(false)}>Home</a>
-            <a href="/about" onClick={() => setIsOpen(false)}>About</a>
             <LogoutButton />
           </nav>
         </Dialog.Content>
