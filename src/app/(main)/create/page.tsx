@@ -62,7 +62,7 @@ const CreatePage = () => {
             image: imageForm,
           });
         })}
-        className="border border-gray-300 rounded-md p-4 flex flex-col w-lg mx-auto"
+        className="w-full max-w-lg border  border-gray-300 p-4 flex flex-col mx-auto"
       >
         <h2 className="font-bold text-3xl mb-4">What's on your mind?</h2>
 
