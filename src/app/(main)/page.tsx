@@ -3,6 +3,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { getMainFeedPosts } from "../../../utils/supabase/queries";
 import MainFeed from "../components/Home/MainFeed/mainFeed";
 import { createClient } from "../../../utils/supabase/server-client";
+import Link from "next/link";
 
 dayjs.extend(relativeTime);
 
@@ -14,7 +15,8 @@ export default async function Home() {
 
     return (
         <div>
-            <MainFeed posts={data!}/>
+            <Link href="/create" className="max-[500px]:bottom-[20px] max-[500px]:right-[20px] button-tertiary fixed bottom-[50px] right-[50px] w-fit">Create Post</Link>
+            <MainFeed posts={data!} />
         </div>
     )
 }
