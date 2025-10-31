@@ -12,7 +12,6 @@ const Header = () => {
         <SearchBar />
 
         </div>
-        <BurgerMenu />
         <AccountLinks />
       </header>
     </>
