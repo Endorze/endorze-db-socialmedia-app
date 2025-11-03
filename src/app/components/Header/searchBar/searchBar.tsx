@@ -41,11 +41,11 @@ const SearchBar = () => {
             </div>
 
             {data && (
-                <div className="absolute z-10 bg-black text-white w-full top-full left-0 mt-1 border border-gray-700 rounded-md">
+                <div className="absolute z-10 bg-gray-200 text-white w-[300px] top-full left-0 mt-1  rounded-md shadow-sm">
                     {data.map(({ title, slug }) => (
                         <Link
                             onClick={reset}
-                            className="block px-2 py-1 hover:bg-gray-800"
+                            className="block px-2 py-1 hover:bg-gray-300 text-black font-sem"
                             key={slug}
                             href={`/${slug}`}
                         >
