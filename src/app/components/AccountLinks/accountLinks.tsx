@@ -14,7 +14,13 @@ const AccountLinks = async () => {
         <>
           <BurgerMenu />
         </>
-        : <Link href="/auth/login" className="button-secondary whitespace-nowrap flex items-center justify-center px-3">Log In</Link>
+        : <Link
+          href="/auth/login"
+          className="button-secondary whitespace-nowrap flex items-center justify-center px-3 flex-shrink-0"
+        >
+          Log In
+        </Link>
+
       }
     </>
   )

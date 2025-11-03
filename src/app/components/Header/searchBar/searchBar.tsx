@@ -28,18 +28,34 @@ const SearchBar = () => {
     }
 
     return (
-        <div className="relative flex items-center">
-            <div className="flex h-[36px] items-center w-[80%] md:w-auto gap-2 p-2 border border-gray-300 rounded-2xl py-1 px-2">
+        <div className="relative flex items-center min-w-0 flex-1">
+            <div className="flex h-[36px] items-center max-w-[250px] sm:max-w-[400px] md:max-w-[600px] flex-shrink gap-2 p-2 border border-gray-300 rounded-2xl">
                 <Search size={16} />
-                <input className="border-0 outline-0" name="search" placeholder="Search by post title" value={userInput} onChange={handleChange} />
+                <input
+                    className="border-0 outline-none w-full min-w-0 text-sm"
+                    name="search"
+                    placeholder="Search by post title"
+                    value={userInput}
+                    onChange={handleChange}
+                />
             </div>
 
-            {data &&
-                <div className="border absolute z-1 bg-black text-white">
-                    {data.map(({ title, slug }) => <Link onClick={reset} className="block" key={slug} href={`/${slug}`}>{title}</Link>)}
+            {data && (
+                <div className="absolute z-10 bg-black text-white w-full top-full left-0 mt-1 border border-gray-700 rounded-md">
+                    {data.map(({ title, slug }) => (
+                        <Link
+                            onClick={reset}
+                            className="block px-2 py-1 hover:bg-gray-800"
+                            key={slug}
+                            href={`/${slug}`}
+                        >
+                            {title}
+                        </Link>
+                    ))}
                 </div>
-            }
+            )}
         </div>
+
 
     )
 }
