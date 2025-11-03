@@ -24,7 +24,7 @@ const LoginForm = () => {
         <div className="min-h-screen flex flex-col justify-center p-4">
             <form
                 onSubmit={handleSubmit(values => mutate(values))}
-                className="w-full max-w-lg border  border-gray-300 p-4 flex flex-col mx-auto"
+                className="w-full max-w-lg border bg-gray-200 border-gray-300 p-4 flex flex-col mx-auto"
             >
 
                 <h2 className="font-bold text-3xl mb-4">Log in</h2>

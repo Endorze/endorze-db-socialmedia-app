@@ -48,7 +48,7 @@ const Post = ({
 
 
     return (
-        <div className="max-w-[500px] w-full mx-auto pb-4 mb-4 bg-white rounded-lg border border-gray-200">
+        <div className="max-w-[500px] w-full mx-auto pb-4 mb-4 bg-white md:rounded-lg border border-gray-200">
             <div className="flex flex-col justify-between px-4">
                 <PostAuthor image="" author={username} timeAgo={created_at} slug={slugText} />
 
