@@ -40,7 +40,7 @@ const ProfilePage = async ({ params }: ProfilePageProps) => {
             <ProfileBanner bannerUrl={profile.banner_url} />
 
             <div className="flex">
-                <ProfileAvatar imageUrl={profile.avatar_url} />
+                <ProfileAvatar imageUrl={profile.avatar_url } />
                 <div className="flex flex-col leading-tight">
                     <p className="text-3xl md:text-4xl font-bold ">{username}</p>
                     <p className="text-gray-700">
