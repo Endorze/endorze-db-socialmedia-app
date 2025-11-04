@@ -53,5 +53,20 @@ export async function SignUp(userdata: SignUpInput): Promise<SignUpResponse | vo
     }
   }
 
+  if (user) {
+    const { error: profileError } = await supabase.from("profile").insert([
+      {
+        user_id: user.id,
+        description: null,
+        avatar_url: null,
+        banner_url: null,
+      },
+    ]);
+
+    if (profileError) {
+      console.error("Profile creation failed:", profileError);
+    }
+  }
+
   redirect("/");
 }

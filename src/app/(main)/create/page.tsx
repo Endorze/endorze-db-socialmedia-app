@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const CreatePage = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null); // 👈 bildförhandsvisning
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const schemaWithImage = createPostSchema
     .omit({ image: true })
