@@ -26,7 +26,7 @@ export const BurgerMenu = () => {
           className="fixed right-0 top-0 h-full w-64 bg-white p-6 shadow-lg transition-transform duration-300"
           onInteractOutside={() => setIsOpen(false)}
         >
-          <PostAuthor image="" author="Alex" timeAgo="" slug="/ei/Alex"/>
+          <PostAuthor image="" author="test" timeAgo="" slug="/ei/profile-tester"/>
           <Dialog.Title className="text-lg font-semibold mb-4">
             Menu
           </Dialog.Title>
