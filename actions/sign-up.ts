@@ -12,19 +12,18 @@ export async function SignUp(userdata: SignUpInput): Promise<SignUpResponse | vo
   const parsedData = signUpSchema.parse(userdata);
   const supabase = await createClient("SignUp");
 
-  const normalizedUsername = parsedData.username.trim().toLowerCase();
+  const normalizedUsername = parsedData.username.trim().toLowerCase().replaceAll(/[^a-z]/, "")
 
   const { data: users, error: usernameCheckError } = await supabase
     .from("users")
-    .select("username");
+    .select("username")
+    .eq("username", normalizedUsername);
 
   if (usernameCheckError) {
     return { error: "Could not verify username availability." };
   }
 
-  const usernameTaken = users?.some(
-    (u) => u.username.toLowerCase() === normalizedUsername
-  );
+  const usernameTaken = users.length > 0;
   if (usernameTaken) {
     return { error: "That username is already taken." };
   }
