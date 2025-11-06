@@ -1,6 +1,13 @@
-const Avatar = () => {
+import { useState } from "react";
+import { getAvatarUrl } from "../../../../actions/getAvatarUrl";
+
+const Avatar = ({ userId }: { userId: string }) => {
+
+    const [imageUrl, setImageUrl] = useState(getAvatarUrl(userId));
+
     return (
-        <img src={"https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/396e9/MainBefore.jpg"} className="rounded-full w-[40px] h-[40px] object-cover"/>
+        <img
+        onError={() => setImageUrl("/default-avatar.png")} src={imageUrl} className="rounded-full w-[40px] h-[40px] object-cover" />
     )
 }
 
