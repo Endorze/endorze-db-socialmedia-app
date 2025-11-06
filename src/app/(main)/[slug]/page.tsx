@@ -11,8 +11,11 @@ const SingleFeed = async ({ params }: { params: { slug: string } }) => {
   const { value: currentPost, error } = await getSinglePost(slug);
 
   if (error) {
-    console.error("Post fetch error:", error?.message);
     return <p>Post not found or failed to load.</p>;
+  }
+
+  if (!currentPost) {
+    return;
   }
 
   const supabase = await createClient("SingleFeed");
