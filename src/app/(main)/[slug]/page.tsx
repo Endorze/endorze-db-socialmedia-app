@@ -3,7 +3,6 @@ import Post from "@/app/components/Post/post";
 import { createClient } from "../../../../utils/supabase/server-client";
 import DeleteButton from "@/app/components/Buttons/DeleteButton/deleteButton";
 import EditPostButton from "@/app/components/Buttons/EditPostButton/editPostButton";
-import { init } from "next/dist/compiled/webpack/webpack";
 
 export const dynamic = "force-dynamic";
 
