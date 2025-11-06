@@ -33,7 +33,7 @@ const CommentSection = ({ postId }: { postId: number }) => {
   return (
     <div className="mt-2 pt-2">
       <div className="flex gap-2 px-4">
-        <Avatar />
+        <Avatar userId={""}/>
         <div className="flex flex-col gap-2 border w-full border-gray-400 rounded-2xl px-3 py-2">
           <input
             type="text"

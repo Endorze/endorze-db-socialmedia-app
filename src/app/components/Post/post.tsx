@@ -5,31 +5,28 @@ import PostActions from "../PostActions/postActions";
 import CommentSection from "../CommentSection/commentSection";
 import { useEffect, useState } from "react";
 import { createClient } from "../../../../utils/supabase/browser-client";
+import { PostType } from "../../../../utils/supabase/queries";
 
 type Props = {
-    content: string | null;
-    title: string;
-    username: string;
-    created_at: string;
-    slugText: string;
-    image?: string;
-    initialLiked: boolean;
-    id: number;
-    likeCount: number;
+    post: PostType
 };
 
 const Post = ({
-    content,
-    title,
-    username,
-    created_at,
-    slugText,
-    image,
-    initialLiked,
-    id,
-    likeCount,
+    post
 }: Props) => {
 
+    const {
+        content,
+        title,
+        users: { username },
+        created_at,
+        slug,
+        image,
+        initialLiked,
+        id,
+        likes_count,
+        user_id,
+    } = post
     const [commentsVisible, setCommentsVisible] = useState(false);
     const [commentCount, setCommentCount] = useState(0);
 
@@ -50,18 +47,18 @@ const Post = ({
     return (
         <div className="max-w-[500px] w-full mx-auto pb-4 mb-4 bg-white md:rounded-lg border border-gray-200">
             <div className="flex flex-col justify-between px-4">
-                <PostAuthor image="" author={username} timeAgo={created_at} slug={slugText} />
+                <PostAuthor userId={user_id} author={username} timeAgo={created_at} slug={slug} />
 
-                <Link href={`/${slugText}`}>
+                <Link href={`/${slug}`}>
                     <p className="text-lg font-medium">{title}</p>
                 </Link>
-                <Link href={`/${slugText}`} className="text-gray-700 text-sm">
+                <Link href={`/${slug}`} className="text-gray-700 text-sm">
                     {content}
                 </Link>
             </div>
 
             {image && (
-                <Link href={`/${slugText}`}>
+                <Link href={`/${slug}`}>
                     {/\.(mp4|mov|webm|ogg)$/i.test(image) ? (
                         <video
                             src={image}
@@ -80,7 +77,7 @@ const Post = ({
                 </Link>
             )}
 
-            <PostActions postId={id} {...{ commentsVisible, setCommentsVisible, initialLiked, likeCount, commentCount }} />
+            <PostActions postId={id} {...{ commentsVisible, setCommentsVisible, initialLiked, likes_count, commentCount }} />
             {commentsVisible && <CommentSection postId={id} />}
         </div>
     );

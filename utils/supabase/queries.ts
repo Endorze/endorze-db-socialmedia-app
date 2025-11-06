@@ -1,14 +1,43 @@
+import { ArrayElement, PartialRecord, Result } from "@/types/types";
 import { createClient } from "./browser-client";
 import { type QueryData } from "@supabase/supabase-js";
 
-//we fetch the posts for main feed, and sort it by time.
-export const getMainFeedPosts = async (supabase: ReturnType<typeof createClient>) => {
-    const { data: { user } } = await supabase.auth.getUser();
+export type ValueOrError<T> = {
+  value: T,
+  error?: null
+} | {
+  value?: null,
+  error: Error | string
+}
 
-    // 🧠 Hämta alla posts (oavsett användare)
-    const { data, error } = await supabase
-        .from("posts")
-        .select(`
+export type PostType = {
+  likes_count: number;
+  initialLiked: boolean;
+  id: number;
+  title: string;
+  content: string | null;
+  slug: string;
+  created_at: string;
+  user_id: string;
+  image: string | null;
+  users: {
+    username: string;
+  };
+  likes: {
+    user_id: string;
+  }[];
+  comments: {
+    id: number;
+  }[];
+}
+
+//we fetch the posts for main feed, and sort it by time.
+export const getMainFeedPosts = async (supabase: ReturnType<typeof createClient>): Promise<Result<PostType[], "posts">> => {
+  const { data: { user } } = await supabase.auth.getUser();
+
+  const { data, error } = await supabase
+    .from("posts")
+    .select(`
     id,
     title,
     content,
@@ -19,34 +48,33 @@ export const getMainFeedPosts = async (supabase: ReturnType<typeof createClient>
     users:users!posts_user_id_fkey(username),
     likes(user_id),
     comments(id)
-  `)
-        .order("created_at", { ascending: false });
+  `) // count(likes(user_id)) as likes_count,
+    .order("created_at", { ascending: false });
 
-    if (error) throw error;
+  if (error) return { error }
 
-    //counts the likes on posts, and makes sure to take into account if an user has already liked a post
-    const postsWithLikeData = data.map((post) => {
-        const uniqueUserLikes = new Set(post.likes.map((l) => l.user_id));
-        const hasLiked = user ? uniqueUserLikes.has(user.id) : false;
+  //counts the likes on posts, and makes sure to take into account if an user has already liked a post
+  const postsWithLikeData = data.map((post) => {
+    const uniqueUserLikes = new Set(post.likes.map((l) => l.user_id));
+    const hasLiked = user ? uniqueUserLikes.has(user.id) : false;
 
-        return {
-            ...post,
-            likes_count: uniqueUserLikes.size,
-            initialLiked: hasLiked,
-        };
-    });
+    return {
+      ...post,
+      likes_count: uniqueUserLikes.size,
+      initialLiked: hasLiked,
+    };
+  });
 
-    return { data: postsWithLikeData, error: null };
+  return { posts: postsWithLikeData }
 };
 
-export type MainPostType = QueryData<ReturnType<typeof getMainFeedPosts>>;
+export const getSinglePost = async (slug: string): Promise<ValueOrError<PostType>> => {
+  const supabase = createClient();
 
-export const getSinglePost = async (slug: string) => {
-    const supabase = createClient();
-
-    return await supabase
-        .from("posts")
-        .select(`
+  const { data: { user } } = await supabase.auth.getUser();
+  const { data: post, error } = await supabase
+    .from("posts")
+    .select(`
       id,
       title,
       content,
@@ -55,18 +83,33 @@ export const getSinglePost = async (slug: string) => {
       user_id,
       image,
       users:users!posts_user_id_fkey(username),
-      likes(user_id)
+      likes(user_id),
+      comments(id)
     `)
-        .eq("slug", slug)
-        .single();
+    .eq("slug", slug)
+    .single();
+
+  if (error) return { error }
+
+  //counts the likes on posts, and makes sure to take into account if an user has already liked a post
+
+  const uniqueUserLikes = new Set(post.likes.map((l) => l.user_id));
+  const hasLiked = user ? uniqueUserLikes.has(user.id) : false;
+  const postsWithLikeData = {
+    ...post,
+    likes_count: uniqueUserLikes.size,
+    initialLiked: hasLiked,
+  };
+
+  return { value: postsWithLikeData }
 }
 
 export const searchForPosts = async (searchTerm: string) => {
-    const supabase = createClient();
+  const supabase = createClient();
 
-    return await supabase.from("posts")
-        .select("title, slug")
-        .ilike("title", `${searchTerm}%`)
+  return await supabase.from("posts")
+    .select("title, slug")
+    .ilike("title", `${searchTerm}%`)
 }
 
 export const getCommentCount = async (postId: number) => {
@@ -79,3 +122,5 @@ export const getCommentCount = async (postId: number) => {
   if (error) throw error;
   return data?.length ?? 0;
 };
+
+

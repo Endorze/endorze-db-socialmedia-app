@@ -1,18 +1,19 @@
+"use server"
 import Link from "next/link"
-import { createClient } from "../../../../utils/supabase/server-client"
-import LogoutButton from "../Buttons/LogoutButton/logoutButton";
 import { BurgerMenu } from "../BurgerMenu/burgerMenu";
+import { getLoggedInUser } from "../../../../utils/supabase/server-queries";
 
 const AccountLinks = async () => {
 
-  const supabase = await createClient("AccountLinks");
-  const { data: { user }, error } = await supabase.auth.getUser();
+  const { user, error } = await getLoggedInUser();
+
+console.log(error)
 
   return (
     <>
       {user ?
         <>
-          <BurgerMenu />
+          <BurgerMenu user={user}/>
         </>
         : <Link
           href="/auth/login"

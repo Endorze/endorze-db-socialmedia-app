@@ -1,11 +1,18 @@
 "use client";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Sling as Hamburger } from "hamburger-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LogoutButton from "../Buttons/LogoutButton/logoutButton";
 import PostAuthor from "../PostAuthor/postAuthor";
+import { UserType } from "@/types/types";
 
-export const BurgerMenu = () => {
+type Props = {
+  user: UserType;
+}
+
+export const BurgerMenu = (props: Props) => {
+
+  const {user} = props;
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -26,7 +33,7 @@ export const BurgerMenu = () => {
           className="fixed right-0 top-0 h-full w-64 bg-white p-6 shadow-lg transition-transform duration-300"
           onInteractOutside={() => setIsOpen(false)}
         >
-          <PostAuthor image="" author="test" timeAgo="" slug="/ei/profile-tester"/>
+          <PostAuthor userId={user.id} author={user.username} timeAgo="" slug={`/ei/${user.username}`}/>
           <Dialog.Title className="text-lg font-semibold mb-4">
             Menu
           </Dialog.Title>

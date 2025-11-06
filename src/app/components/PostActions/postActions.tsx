@@ -7,14 +7,14 @@ import { CommentButton } from '../Buttons/CommentButton/commentButton';
 export default function PostActions({
     postId,
     initialLiked,
-    likeCount,
+    likes_count,
     commentCount,
     commentsVisible,
     setCommentsVisible
 }: {
     postId: number;
     initialLiked: boolean;
-    likeCount: number;
+    likes_count: number;
     commentCount: number;
     commentsVisible: boolean;
     setCommentsVisible: (newVisible: boolean) => void;
@@ -22,7 +22,7 @@ export default function PostActions({
 
     return (
         <div className="flex gap-2 justify-evenly max-w-[600px] mx-auto w-full  mt-4 ">
-            <LikeButton postId={postId} initialLiked={initialLiked} likeCount={likeCount} />
+            <LikeButton postId={postId} initialLiked={initialLiked} likeCount={likes_count} />
             <CommentButton onClick={() => setCommentsVisible(!commentsVisible)} commentCount={commentCount} />
             <button className='flex items-center cursor-pointer w-fit gap-1.5'>
                 <span>

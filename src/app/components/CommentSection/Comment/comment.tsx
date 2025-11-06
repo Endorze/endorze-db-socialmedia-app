@@ -35,7 +35,7 @@ const Comment = ({ comment }: Props) => {
 
   return (
     <div className="border-l pl-3 text-sm">
-      <PostAuthor image="" author={comment.user.username} timeAgo={comment.created_at} slug="" />
+      <PostAuthor userId={""} author={comment.user.username} timeAgo={comment.created_at} slug="" />
       <div className="px-12 flex flex-col gap-2">
         <p>{comment.content}</p>
         <ReplyButton

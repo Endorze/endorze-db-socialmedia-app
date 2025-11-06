@@ -3,17 +3,19 @@ import Post from "@/app/components/Post/post";
 import { createClient } from "../../../../utils/supabase/server-client";
 import DeleteButton from "@/app/components/Buttons/DeleteButton/deleteButton";
 import EditPostButton from "@/app/components/Buttons/EditPostButton/editPostButton";
-import { init } from "next/dist/compiled/webpack/webpack";
 
 export const dynamic = "force-dynamic";
 
 const SingleFeed = async ({ params }: { params: { slug: string } }) => {
   const { slug } = await params;
-  const { data: currentPost, error } = await getSinglePost(slug);
+  const { value: currentPost, error } = await getSinglePost(slug);
 
-  if (error || !currentPost) {
-    console.error("Post fetch error:", error?.message);
+  if (error) {
     return <p>Post not found or failed to load.</p>;
+  }
+
+  if (!currentPost) {
+    return;
   }
 
   const supabase = await createClient("SingleFeed");
@@ -35,34 +37,12 @@ const SingleFeed = async ({ params }: { params: { slug: string } }) => {
         </div>
       }
 
-      {currentPost.image ? (
-        <div className="flex gap-2">
-          <Post
-            content={currentPost.content}
-            title={currentPost.title}
-            username={currentPost.users.username}
-            created_at={currentPost.created_at}
-            slugText={currentPost.slug}
-            image={currentPost.image}
-            likeCount={likeCount}
-            initialLiked={initialLiked}
-            id={currentPost.id}
-          />
-        </div>
-      ) : (
-        <div className="flex gap-2">
-          <Post
-            content={currentPost.content}
-            title={currentPost.title}
-            username={currentPost.users.username}
-            created_at={currentPost.created_at}
-            slugText={currentPost.slug}
-            initialLiked={initialLiked}
-            likeCount={likeCount}
-            id={currentPost.id}
-          />
-        </div>
-      )}
+      <div className="flex gap-2">
+        <Post
+          post={currentPost}
+        />
+      </div>
+
     </div>
   );
 };
