@@ -11,9 +11,10 @@ export const revalidate = 30;
 
 export default async function Home() {
     const supabase = await createClient("Home");
-    const { value: posts, error } = await getMainFeedPosts(supabase);
+    const { posts, error } = await getMainFeedPosts(supabase);
 
     if (error) {
+        console.log(posts)
         return <>Could not load main feed</>
     }
 

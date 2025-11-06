@@ -1,3 +1,4 @@
+"use server"
 import AccountLinks from "../AccountLinks/accountLinks";
 import { BurgerMenu } from "../BurgerMenu/burgerMenu";
 import Logo from "../Logo/logo";

@@ -1,4 +1,4 @@
-import { ArrayElement } from "@/types/types";
+import { ArrayElement, PartialRecord, Result } from "@/types/types";
 import { createClient } from "./browser-client";
 import { type QueryData } from "@supabase/supabase-js";
 
@@ -7,7 +7,7 @@ export type ValueOrError<T> = {
   error?: null
 } | {
   value?: null,
-  error: Error
+  error: Error | string
 }
 
 export type PostType = {
@@ -32,7 +32,7 @@ export type PostType = {
 }
 
 //we fetch the posts for main feed, and sort it by time.
-export const getMainFeedPosts = async (supabase: ReturnType<typeof createClient>): Promise<ValueOrError<PostType[]>> => {
+export const getMainFeedPosts = async (supabase: ReturnType<typeof createClient>): Promise<Result<PostType[], "posts">> => {
   const { data: { user } } = await supabase.auth.getUser();
 
   const { data, error } = await supabase
@@ -65,12 +65,12 @@ export const getMainFeedPosts = async (supabase: ReturnType<typeof createClient>
     };
   });
 
-  return { value: postsWithLikeData }
+  return { posts: postsWithLikeData }
 };
 
 export const getSinglePost = async (slug: string): Promise<ValueOrError<PostType>> => {
   const supabase = createClient();
-  
+
   const { data: { user } } = await supabase.auth.getUser();
   const { data: post, error } = await supabase
     .from("posts")
@@ -122,3 +122,5 @@ export const getCommentCount = async (postId: number) => {
   if (error) throw error;
   return data?.length ?? 0;
 };
+
+

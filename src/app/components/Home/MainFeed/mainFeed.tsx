@@ -10,9 +10,9 @@ const MainFeed = ({ posts }: { posts: PostType[] }) => {
         queryKey: ["mainfeed-posts"],
         queryFn: async () => {
             const supabase = createClient();
-            const { value, error } = await getMainFeedPosts(supabase)
+            const { posts, error } = await getMainFeedPosts(supabase)
             if (error) throw new Error;
-            return value;
+            return posts;
         },
         initialData: posts,
         staleTime: 0,

@@ -1,3 +1,4 @@
+"use server"
 import { QueryClientProvider } from "../../../providers/query-client-provider";
 import Header from "../components/Header/header";
 
