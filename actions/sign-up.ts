@@ -12,7 +12,8 @@ export async function SignUp(userdata: SignUpInput): Promise<SignUpResponse | vo
   const parsedData = signUpSchema.parse(userdata);
   const supabase = await createClient("SignUp");
 
-  const normalizedUsername = parsedData.username.trim().toLowerCase().replaceAll(/[^a-z]/, "")
+  const normalizedUsername = parsedData.username.trim().toLowerCase().replaceAll(/[^a-z]/g, "")
+
 
   const { data: users, error: usernameCheckError } = await supabase
     .from("users")
